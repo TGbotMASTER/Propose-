@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>For My Cutie Yogita 💖✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #fff0f6;
+      --bg2: #fce4ec;
+      --bg3: #fff9db;
+      --primary: #ff4d8d;
+      --primary-dark: #d81b60;
+      --secondary: #a855f7;
+      --accent: #ff85a2;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --text-main: #3b2230;
+      --text-sub: #6d4c5c;
+      --shadow: 0 12px 32px rgba(255, 77, 141, 0.18);
+    }
+
+    body.romantic-mode {
+      --bg1: #2b091c;
+      --bg2: #4a0e2e;
+      --bg3: #701440;
+      --primary: #ff4d8d;
+      --secondary: #ff85a2;
+      --card-bg: rgba(255, 245, 250, 0.96);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      font-family: 'Quicksand', sans-serif;
+      color: var(--text-main);
+      background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+      transition: background 0.9s ease;
+    }
+
+    #heartCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .app-shell {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 440px;
+      min-height: 100dvh;
+      margin: 0 auto;
+      padding: 12px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 2px;
+      z-index: 10;
+    }
+
+    .step-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 7px 12px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(255, 77, 141, 0.12);
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #f8bbd0;
+      transition: all 0.35s ease;
+    }
+
+    .dot.active {
+      width: 18px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff4d8d, #a855f7);
+    }
+
+    .music-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1.5px solid #ffc1e3;
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #d81b60;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255, 77, 141, 0.14);
+      transition: transform 0.2s ease;
+    }
+
+    .music-pill:active {
+      transform: scale(0.95);
+    }
+
+    .eq-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 11px;
+    }
+
+    .eq-bar {
+      width: 2.5px;
+      height: 4px;
+      background: #ff4d8d;
+      border-radius: 2px;
+      transition: height 0.2s ease;
+    }
+
+    .music-playing .eq-bar:nth-child(1) { animation: eqAnim 0.6s infinite ease-in-out; }
+    .music-playing .eq-bar:nth-child(2) { animation: eqAnim 0.5s infinite ease-in-out 0.15s; }
+    .music-playing .eq-bar:nth-child(3) { animation: eqAnim 0.7s infinite ease-in-out 0.3s; }
+
+    @keyframes eqAnim {
+      0%, 100% { height: 3px; }
+      50% { height: 11px; }
+    }
+
+    /* Main Card Container (Compact & Auto-Adjusted for Mobile Chrome) */
+    .stage-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .page-card {
+      display: none;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 26px;
+      padding: 18px 16px;
+      box-shadow: var(--shadow);
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      flex-direction: column;
+      gap: 12px;
+      animation: cardEnter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .page-card.active {
+      display: flex;
+    }
+
+    @keyframes cardEnter {
+      from { opacity: 0; transform: translateY(16px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Typography & Shimmer */
+    .badge-chip {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(90deg, #fce4ec, #f3e5f5);
+      color: #ad1457;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    .title-main {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 22px;
+      line-height: 1.25;
+      color: #2d1424;
+    }
+
+    .shimmer-word {
+      background: linear-gradient(90deg, #ff2a85, #a855f7, #ff6b6b, #ff2a85);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textShimmer 3s linear infinite;
+      font-weight: 700;
+    }
+
+    @keyframes textShimmer {
+      to { background-position: 200% center; }
+    }
+
+    .sub-lead {
+      font-size: 13.2px;
+      line-height: 1.46;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .word-pill {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95em;
+      margin: 0 1px;
+    }
+
+    .pill-pink { background: #ffe0ec; color: #c2185b; }
+    .pill-gold { background: #fff3cd; color: #b7791f; }
+    .pill-purple { background: #f3e8ff; color: #7e22ce; }
+
+    /* Page 1: Envelope Hook */
+    .envelope-box {
+      background: linear-gradient(145deg, #fff5f8, #fce4ec);
+      border: 2px dashed #ff85a2;
+      border-radius: 22px;
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .envelope-box:active {
+      transform: scale(0.97);
+    }
+
+    .env-icon {
+      font-size: 56px;
+      display: inline-block;
+      animation: floatBounce 2.2s infinite ease-in-out;
+      filter: drop-shadow(0 8px 14px rgba(255, 77, 141, 0.28));
+    }
+
+    @keyframes floatBounce {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-8px) rotate(3deg); }
+    }
+
+    /* Feature Mini Cards (Page 2) */
+    .story-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .story-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 12px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1.5px solid #fce4ec;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .story-item.gold-tint { background: #fffdf5; border-color: #fde68a; }
+    .story-item.purple-tint { background: #faf5ff; border-color: #e9d5ff; }
+    .story-item.pink-tint { background: #fff5f8; border-color: #fbcfe8; }
+
+    .story-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #ff85a2, #ff4d8d);
+      color: #fff;
+    }
+
+    .story-content h4 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 14.5px;
+      color: #2d1424;
+      margin-bottom: 3px;
+    }
+
+    .story-content p {
+      font-size: 12.8px;
+      line-height: 1.42;
+      color: #5c3d4c;
+      font-weight: 600;
+    }
+
+    .mini-action-btn {
+      margin-top: 8px;
+      width: 100%;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff4d8d, #a855f7);
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(168, 85, 247, 0.25);
+    }
+
+    /* Page 3: Stickers & Cutie Meter */
+    .sticker-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .sticker-card {
+      background: #fff8fb;
+      border: 1.5px solid #ffd1e6;
+      border-radius: 16px;
+      padding: 10px 9px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .sticker-card.revealed {
+      background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+      border-color: #ec4899;
+      transform: translateY(-2px);
+    }
+
+    .sticker-emoji {
+      font-size: 23px;
+      margin-bottom: 3px;
+      display: block;
+    }
+
+    .sticker-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #ad1457;
+    }
+
+    .sticker-secret {
+      font-size: 11.2px;
+      color: #6b3854;
+      margin-top: 4px;
+      display: none;
+      font-weight: 600;
+      line-height: 1.32;
+    }
+
+    .sticker-card.revealed .sticker-secret {
+      display: block;
+    }
+
+    .meter-box {
+      background: #fff;
+      border: 1.5px solid #fce4ec;
+      border-radius: 18px;
+      padding: 11px 12px;
+    }
+
+    .meter-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.2px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #ad1457;
+    }
+
+    .meter-bar-bg {
+      width: 100%;
+      height: 10px;
+      background: #fce4ec;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .meter-bar-fill {
+      width: 25%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff85a2, #ff2a85, #a855f7);
+      border-radius: 999px;
+      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Page 4: Magic Scratch Card & Heart Scanner */
+    .scratch-wrap {
+      position: relative;
+      width: 100%;
+      height: 92px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid #ffc1e3;
+      background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      box-shadow: 0 4px 14px rgba(255, 77, 141, 0.12);
+    }
+
+    .scratch-secret-text {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 15px;
+      color: #d81b60;
+      line-height: 1.35;
+    }
+
+    #scratchCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    .scanner-pad {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 12px;
+      background: radial-gradient(circle, #fff0f6 0%, #fce4ec 100%);
+      border: 2px dashed #ff4d8d;
+      border-radius: 20px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .heart-btn-scan {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff4d8d, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      color: #fff;
+      box-shadow: 0 0 0 8px rgba(255, 77, 141, 0.16);
+      animation: pulseHeart 1.5s infinite;
+      margin-bottom: 8px;
+    }
+
+    @keyframes pulseHeart {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 8px rgba(255, 77, 141, 0.16); }
+      50% { transform: scale(1.08); box-shadow: 0 0 0 15px rgba(255, 77, 141, 0.05); }
+    }
+
+    /* Page 5: Scrollable Love Letters + Virtual Hug + Bucket List */
+    .letters-scroll {
+      max-height: 310px;
+      overflow-y: auto;
+      padding-right: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      user-select: text;
+    }
+
+    .letters-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .letters-scroll::-webkit-scrollbar-thumb {
+      background: #ff85a2;
+      border-radius: 999px;
+    }
+
+    .letter-card {
+      background: linear-gradient(145deg, #ffffff, #fff5f9);
+      border: 1.5px solid #ffc1e3;
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 4px 10px rgba(255, 77, 141, 0.07);
+    }
+
+    .letter-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(90deg, #ff4d8d, #a855f7);
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .letter-card p {
+      font-size: 13px;
+      line-height: 1.52;
+      color: #3d1e2e;
+      font-weight: 600;
+    }
+
+    /* Virtual Hug Box */
+    .hug-box {
+      background: linear-gradient(135deg, #fff0f6, #fce4ec);
+      border: 1.5px solid #ff85a2;
+      border-radius: 18px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .hug-btn {
+      margin-top: 7px;
+      width: 100%;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ec4899, #8b5cf6);
+      color: #fff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 13.5px;
+      cursor: pointer;
+      box-shadow: 0 5px 14px rgba(236, 72, 153, 0.28);
+      transition: transform 0.2s ease;
+    }
+
+    .hug-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Bucket List Checklist */
+    .bucket-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #4a2538;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid #f8bbd0;
+      margin-top: 6px;
+      cursor: pointer;
+    }
+
+    .bucket-item.checked {
+      background: #fdf2f8;
+      border-color: #ec4899;
+      color: #be185d;
+    }
+
+    /* Page 6: Proposal & Celebration */
+    .proposal-hero {
+      text-align: center;
+      padding: 6px 4px;
+    }
+
+    .ring-icon {
+      font-size: 48px;
+      display: inline-block;
+      animation: floatBounce 2s infinite ease-in-out;
+      margin-bottom: 4px;
+    }
+
+    .proposal-question {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 20px;
+      color: #ad1457;
+      margin: 6px 0;
+    }
+
+    .choice-group {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 6px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(90deg, #ff9a44 0%, #ff4d8d 50%, #a855f7 100%);
+      box-shadow: 0 8px 20px rgba(255, 77, 141, 0.32);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-playful {
+      width: 100%;
+      border: 1.5px solid #f48fb1;
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: #fff0f6;
+      color: #ad1457;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+
+    /* Celebration Reply Box (No Green WhatsApp Button) */
+    .reply-box {
+      background: #fff7fb;
+      border: 1.5px solid #f8bbd0;
+      border-radius: 18px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .reply-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip-btn {
+      border: 1px solid #f48fb1;
+      background: #ffeef6;
+      color: #ad1457;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .reply-textarea {
+      width: 100%;
+      border: 1.5px solid #f48fb1;
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 12.8px;
+      font-weight: 600;
+      color: #3b2230;
+      resize: none;
+      height: 58px;
+      background: #fff;
+      user-select: text;
+    }
+
+    .btn-copy-pink {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 16px;
+      background: linear-gradient(90deg, #ff4d8d, #d81b60);
+      color: #fff;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(216, 27, 96, 0.28);
+    }
+
+    /* Peeking Cat Widget */
+    .peeking-cat {
+      position: fixed;
+      right: -6px;
+      bottom: 58px;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    }
+
+    .peeking-cat.hidden-cat {
+      transform: translateX(130%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cat-bubble {
+      background: #fff;
+      border: 1.5px solid #ff85a2;
+      border-radius: 14px 14px 4px 14px;
+      padding: 6px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #ad1457;
+      max-width: 155px;
+      box-shadow: 0 4px 12px rgba(255, 77, 141, 0.18);
+      margin-right: 4px;
+      line-height: 1.3;
+    }
+
+    .cat-avatar-wrap {
+      position: relative;
+      background: #fff0f6;
+      border: 2px solid #ff85a2;
+      border-radius: 22px 0 0 22px;
+      padding: 6px 10px 6px 8px;
+      cursor: pointer;
+      box-shadow: -3px 5px 14px rgba(255, 77, 141, 0.2);
+    }
+
+    .cat-emoji {
+      font-size: 28px;
+      display: block;
+    }
+
+    .cat-close {
+      position: absolute;
+      top: -7px;
+      left: -7px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ff4d8d;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    .bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #8c5870;
+      padding: 2px 4px;
+    }
+
+    body.romantic-mode .bottom-bar {
+      color: #ffd1e6;
+    }
+
+    .call-cat-btn {
+      border: 1px solid #ff85a2;
+      background: rgba(255, 255, 255, 0.9);
+      color: #d81b60;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Secret Creator Modal (Opens on 5 taps on footer text) */
+    .secret-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .secret-modal.open {
+      display: flex;
+    }
+
+    .secret-box {
+      background: #fff;
+      width: 100%;
+      max-width: 360px;
+      border-radius: 20px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .secret-box input {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1.5px solid #f48fb1;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Real Love Song Audio Element (Ishq Wala Love from Dropbox) -->
+  <audio id="loveSongAudio" preload="auto" loop playsinline>
+    <source src="https://www.dropbox.com/scl/fi/f0xhmjcmnn7dptdirb1tm/Ishq-Wala-Love-_-4K-_-Alia-Bhatt-Sidharth-Malhotra-Varun-Dhawan-_-Neeti-Mohan-_-Salim-Merchant-64-Kbps.mp3?rlkey=4guawstb6k174cpuhsdywhx8s&st=v1705yrp&raw=1" type="audio/mpeg">
+    <source src="https://dl.dropboxusercontent.com/scl/fi/f0xhmjcmnn7dptdirb1tm/Ishq-Wala-Love-_-4K-_-Alia-Bhatt-Sidharth-Malhotra-Varun-Dhawan-_-Neeti-Mohan-_-Salim-Merchant-64-Kbps.mp3?rlkey=4guawstb6k174cpuhsdywhx8s&st=v1705yrp" type="audio/mpeg">
+  </audio>
+
+  <canvas id="heartCanvas"></canvas>
+
+  <div class="app-shell">
+    <!-- Top Bar (No Gear Icon) -->
+    <div class="top-bar">
+      <div class="step-dots" id="stepDots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+
+      <button class="music-pill" id="musicBtn" onclick="toggleMusic()">
+        <div class="eq-bars">
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+        </div>
+        <span id="musicLabel">🔇 Tap for Music</span>
+      </button>
+    </div>
+
+    <!-- Main Center Stage -->
+    <div class="stage-wrap">
+
+      <!-- PAGE 1: Cute Envelope Hook -->
+      <section class="page-card active" id="page1">
+        <span class="badge-chip">✨ Special Delivery For Aap</span>
+        <h1 class="title-main">Hey <span class="shimmer-word">Yogita Ji</span>! 🌸</h1>
+        <p class="sub-lead">
+          Maine <span class="word-pill pill-pink">Aapke</span> liye ek chhoti si cute website banayi hai. Niche envelope par tap karke open kijiye Cutie! 💖
+        </p>
+
+        <div class="envelope-box" onclick="startJourney()">
+          <span class="env-icon">💌</span>
+          <h3 style="font-family:'Fredoka',sans-serif; color:#d81b60; margin-top:8px; font-size:18px;">
+            Tap to Open Surprise ✨
+          </h3>
+          <p style="font-size:12px; color:#7b4f64; margin-top:4px; font-weight:600;">
+            (Sound ON ho jayega + Cute Vibes 🎵)
+          </p>
+        </div>
+      </section>
+
+      <!-- PAGE 2: WePlay Story -->
+      <section class="page-card" id="page2">
+        <span class="badge-chip">🎮 Chapter 1: Hamari Cute Shuruat</span>
+        <h2 class="title-main"><span class="shimmer-word">WePlay</span> Ki Sabse Pyari Mulakat ✨</h2>
+        <p class="sub-lead">
+          Kisne socha tha ek game app par <span class="word-pill pill-pink">Aap</span> jaisa anmol insan mil jayega!
+        </p>
+
+        <div class="story-list">
+          <div class="story-item gold-tint">
+            <div class="story-icon">🎲</div>
+            <div class="story-content">
+              <h4>Lucky Match on WePlay 🌟</h4>
+              <p>
+                Log WePlay par sirf timepass karne aate hain, par wahan <span class="word-pill pill-gold">Aapse</span> milna meri life ka sabse khoobsurat plot twist tha.
+              </p>
+            </div>
+          </div>
+
+          <div class="story-item purple-tint">
+            <div class="story-icon">🎙️</div>
+            <div class="story-content">
+              <h4>Aapki Aawaz Aur Wo Masti 🎶</h4>
+              <p>
+                Game jeetna ya haarna toh bas bahana tha, asli khushi toh <span class="word-pill pill-purple">Tumhari</span> pyari si hasi aur baatein sunne mein milti thi.
+              </p>
+            </div>
+          </div>
+
+          <div class="story-item pink-tint">
+            <div class="story-icon">🧶</div>
+            <div class="story-content">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h4>Distance Magic Widget 🌍</h4>
+                <span id="distBadge" style="font-size:10.5px; background:#ffe0ec; color:#c2185b; padding:2px 7px; border-radius:99px; font-weight:700;">Miles Apart</span>
+              </div>
+              <p id="distText">
+                Hum real mein abhi mile nahi hain, par neeche tap karke dekhiye sach kya hai:
+              </p>
+              <button class="mini-action-btn" id="distBtn" onclick="measureHeartDistance()">
+                ✨ Tap to Measure Heart Distance
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="goToPage(3)">
+          Aage Dekhiye Cutie 👉✨
+        </button>
+      </section>
+
+      <!-- PAGE 3: Stickers & Cutie Meter -->
+      <section class="page-card" id="page3">
+        <span class="badge-chip">🎀 Fun Corner For Yogita</span>
+        <h2 class="title-main"><span class="shimmer-word">Aapki</span> Tarif Ke 4 Cute Cards 🌸</h2>
+        <p class="sub-lead">
+          In charo cards par tap karke dekhiye <span class="word-pill pill-pink">Tum</span> kitni special ho:
+        </p>
+
+        <div class="sticker-grid">
+          <div class="sticker-card" onclick="revealSticker(this)">
+            <span class="sticker-emoji">🌷</span>
+            <div class="sticker-title">Tap Card #1</div>
+            <div class="sticker-secret">Aapki vibe itni pure aur pyari hai ki mood turant achha ho jata hai! 💖</div>
+          </div>
+          <div class="sticker-card" onclick="revealSticker(this)">
+            <span class="sticker-emoji">🦋</span>
+            <div class="sticker-title">Tap Card #2</div>
+            <div class="sticker-secret">Bina real me mile bhi Aap sabse kareeb aur apni si lagti ho Baby! ✨</div>
+          </div>
+          <div class="sticker-card" onclick="revealSticker(this)">
+            <span class="sticker-emoji">🍓</span>
+            <div class="sticker-title">Tap Card #3</div>
+            <div class="sticker-secret">Tumhari chhoti-chhoti baatein aur nakhre dono bohot cute lagte hain! 🥰</div>
+          </div>
+          <div class="sticker-card" onclick="revealSticker(this)">
+            <span class="sticker-emoji">👑</span>
+            <div class="sticker-title">Tap Card #4</div>
+            <div class="sticker-secret">Mere liye toh Aap duniya ki sabse pyari Queen ho Jaan! 👑💖</div>
+          </div>
+        </div>
+
+        <div class="meter-box">
+          <div class="meter-top">
+            <span>💖 Yogita Ji's Cutie Meter:</span>
+            <span id="meterValue">99% Cute</span>
+          </div>
+          <div class="meter-bar-bg">
+            <div class="meter-bar-fill" id="meterFill" style="width: 65%;"></div>
+          </div>
+          <button class="mini-action-btn" onclick="boostCutieMeter()">
+            🚀 Tap to Check Real Level
+          </button>
+        </div>
+
+        <button class="btn-primary" onclick="goToPage(4)">
+          Next Surprise Dekhiye 💝
+        </button>
+      </section>
+
+      <!-- PAGE 4: Magic Scratch Card + Transition Heart Scanner -->
+      <section class="page-card" id="page4">
+        <span class="badge-chip">🔐 Secret Heart Lock</span>
+        <h2 class="title-main">Ab Ek Chhota Sa <span class="shimmer-word">Sach</span>... 💓</h2>
+        <p class="sub-lead">
+          Pehle niche card ko ungli se scratch kijiye <span class="word-pill pill-pink">Jaan</span>, aur fir Heart par tap karke <span class="word-pill pill-purple">Ishq Wala Love</span> unlock kijiye:
+        </p>
+
+        <!-- Interactive Finger Scratch Card -->
+        <div class="scratch-wrap">
+          <div class="scratch-secret-text">
+            🏆 You Won My Heart Forever, <span class="shimmer-word">Yogita Jaan</span>! 💖👑
+          </div>
+          <canvas id="scratchCanvas"></canvas>
+        </div>
+
+        <div class="scanner-pad" onclick="unlockRomanticMode()">
+          <div class="heart-btn-scan" id="scanHeartIcon">💖</div>
+          <h4 id="scanStatusTitle" style="font-family:'Fredoka',sans-serif; color:#ad1457; font-size:15.5px;">
+            Tap Heart to Play Our Love Song ✨
+          </h4>
+          <p id="scanStatusSub" style="font-size:12px; color:#6d4c5c; margin-top:3px; font-weight:600;">
+            (Ishq Wala Love 🎶 + Secret Messages खुलेंगे)
+          </p>
+        </div>
+      </section>
+
+      <!-- PAGE 5: 3 Scrollable Love Letters + Virtual Hug + Future Bucket List -->
+      <section class="page-card" id="page5">
+        <span class="badge-chip">💌 Dil Ki Baat For My Baby</span>
+        <h2 class="title-main">Sirf <span class="shimmer-word">Aapke</span> Liye, Yogita 💖</h2>
+        <p class="sub-lead">
+          Niche scroll karke saare messages aur surprises dekhiye <span class="word-pill pill-pink">Jaan</span> (Swipe Down 👇):
+        </p>
+
+        <div class="letters-scroll">
+          <div class="letter-card">
+            <span class="letter-tag">Message 1 • WePlay Se Dil Tak 🎮💞</span>
+            <p>
+              Pata hai <span class="word-pill pill-pink">Jaan</span>, jab hum <span class="word-pill pill-gold">WePlay</span> par mile the, tab maine bilkul nahi socha tha ki screen ke us paar baithi ek ladki meri zindagi mein itni khaas ban jayegi. <span class="word-pill pill-purple">Aapse</span> baat karna, <span class="word-pill pill-pink">Tumhari</span> hasi sunna—ab mere poore din ka sabse pyara hissa ban chuka hai.
+            </p>
+          </div>
+
+          <div class="letter-card">
+            <span class="letter-tag">Message 2 • Door Reh Kar Bhi Ek 🌍💖</span>
+            <p>
+              Sach hai ki hum kafi door rehte hain aur abhi tak real mein kabhi mile bhi nahi hain <span class="word-pill pill-pink">Baby</span>... par yakeen maniye, <span class="word-pill pill-gold">Aapse</span> baat karte waqt ek second ke liye bhi doori mehsoos nahi hoti. Bina mile bhi <span class="word-pill pill-purple">Tum</span> mere dil ke sabse kareeb ho, aur hum door reh kar bhi bilkul ek hain.
+            </p>
+          </div>
+
+          <div class="letter-card">
+            <span class="letter-tag">Message 3 • Sabse Khaas Ehsas 🌸💍</span>
+            <p>
+              <span class="word-pill pill-pink">Yogita</span>, <span class="word-pill pill-purple">Aap</span> mujhe bohot, bohot zyada achhi lagti ho. <span class="word-pill pill-gold">Tumhara</span> care karna, pyar se baat karna aur <span class="word-pill pill-pink">Jaan</span> / <span class="word-pill pill-pink">Baby</span> kehna seedha dil ko chhoo jata hai. Main bas hamesha <span class="word-pill pill-purple">Aapke</span> chehre ki smile banna chahta hu!
+            </p>
+          </div>
+
+          <!-- Virtual Hug Widget -->
+          <div class="hug-box">
+            <div style="font-family:'Fredoka',sans-serif; font-size:14px; color:#ad1457;" id="hugStatusText">
+              🫂 Long Distance Virtual Hug For Aap
+            </div>
+            <p style="font-size:12px; color:#5c3d4c; margin-top:3px; font-weight:600;">
+              Jab tak real me nahi milte, tab tak niche tap karke mera hug feel kijiye Baby:
+            </p>
+            <button class="hug-btn" id="hugBtn" onclick="sendVirtualHug()">
+              🤗 Tap to Feel Tight Virtual Hug
+            </button>
+          </div>
+
+          <!-- Future Bucket List -->
+          <div class="letter-card">
+            <span class="letter-tag">Our Bucket List • Jab Hum Real Me Milenge ✈️🍦</span>
+            <p style="margin-bottom:6px;">Tap karke tick lagaiye <span class="word-pill pill-pink">Jaan</span> jo hum sabse pehle karenge:</p>
+            <div class="bucket-item" onclick="toggleBucket(this)">
+              <span>⬜</span> Sabse pehle ek bohot tight hug karenge 🫂💖
+            </div>
+            <div class="bucket-item" onclick="toggleBucket(this)">
+              <span>⬜</span> Aapki favorite ice cream / street food khayenge 🍦😋
+            </div>
+            <div class="bucket-item" onclick="toggleBucket(this)">
+              <span>⬜</span> Saath baith kar WePlay khelenge aur photos lenge 📸🎮
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="goToPage(6)">
+          Ek Aakhri Sawal Hai Jaan 👉💍
+        </button>
+      </section>
+
+      <!-- PAGE 6: Proposal Finale & Clean Celebration State -->
+      <section class="page-card" id="page6">
+        <!-- Ask State -->
+        <div id="proposalAskView">
+          <div class="proposal-hero">
+            <span class="ring-icon">💍</span>
+            <span class="badge-chip" style="margin:0 auto 8px;">💖 My Forever Question</span>
+            <h2 class="title-main">My Cutie <span class="shimmer-word">Yogita</span> 🌸</h2>
+            <p class="sub-lead" style="margin-top:6px;">
+              <span class="word-pill pill-pink">WePlay</span> se shuru hui is pyari si kahani ko main hamesha ke liye apni sabse khoobsurat duniya banana chahta hu.
+            </p>
+            <div class="proposal-question">
+              Will You Be Mine Forever, <span class="shimmer-word">Jaan</span>? 💖✨
+            </div>
+          </div>
+
+          <div class="choice-group">
+            <button class="btn-primary" onclick="acceptProposal()">
+              Haan Jaan! Yes, Forever! 💖🥰
+            </button>
+            <button class="btn-playful" id="playfulNoBtn" onclick="handlePlayfulWait()">
+              Sochna Padega Cutie 🙈
+            </button>
+          </div>
+        </div>
+
+        <!-- Celebration State (Green WhatsApp Button Removed) -->
+        <div id="proposalYesView" style="display:none; text-align:center;">
+          <div style="font-size:38px; margin-bottom:4px;">🎉💖👑</div>
+          <span class="badge-chip" style="margin:0 auto 6px; background:#e0f2fe; color:#0369a1;">✨ Best Moment Ever!</span>
+          <h2 class="title-main">Yayyy! Love You So Much, <span class="shimmer-word">Jaan</span>! 🌸</h2>
+          <p class="sub-lead" style="margin:8px 0 12px;">
+            <span class="word-pill pill-pink">WePlay</span> se shuru hui dosti aaj sabse khoobsurat pyar ban gayi! Chahe hum abhi door hain <span class="word-pill pill-pink">Baby</span>, par mera dil humesha <span class="word-pill pill-purple">Aapke</span> paas rahega! 💕
+          </p>
+
+          <div class="reply-box">
+            <div style="font-size:12.5px; font-weight:700; color:#ad1457;">
+              💌 Apna Pyara Jawab Mujhe Bhejiye Baby:
+            </div>
+            <div class="reply-chips">
+              <button class="chip-btn" onclick="setReplyChip('Haan Jaan! Love You Too! 💖🥰')">Haan Jaan! 💖</button>
+              <button class="chip-btn" onclick="setReplyChip('Best Surprise Ever Baby! 🥺🌸')">Best Surprise 🥺🌸</button>
+              <button class="chip-btn" onclick="setReplyChip('Forever Yours Jaan! 💍✨')">Forever Yours 💍</button>
+            </div>
+            <textarea id="yogitaReplyInput" class="reply-textarea">Haan Jaan! Mujhe Aapki website aur Aap dono bohot pasand aaye! 💖🙈</textarea>
+
+            <button class="btn-copy-pink" id="copyReplyBtn" onclick="copyReplyMessage()">
+              📋 Copy Reply for WePlay / Instagram
+            </button>
+          </div>
+
+          <button onclick="goToPage(1)" style="margin-top:12px; background:none; border:none; color:#7b4f64; font-weight:700; font-size:12.5px; text-decoration:underline; cursor:pointer;">
+            Phir Se Website Dekhiye 🔄
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="bottom-bar">
+      <span id="secretTrigger" onclick="handleSecretTap()" style="cursor:pointer;">
+        Crafted with ♾️ Love for Yogita Ji
+      </span>
+      <button class="call-cat-btn" onclick="toggleCat(true)">
+        🐾 Call Kitty Back
+      </button>
+    </div>
+  </div>
+
+  <!-- Peeking Cute Cat Widget -->
+  <div class="peeking-cat" id="peekingCat">
+    <div class="cat-bubble" id="catSpeech">
+      Hey Yogita Cutie! Envelope open kijiye 🐾💖
+    </div>
+    <div class="cat-avatar-wrap" onclick="pokeCat()">
+      <button class="cat-close" onclick="event.stopPropagation(); toggleCat(false);" title="Hide Kitty">×</button>
+      <span class="cat-emoji">🐱🌸</span>
+    </div>
+  </div>
+
+  <!-- Secret Telegram Alert Setup Modal (Opens on 5 rapid taps on footer text) -->
+  <div class="secret-modal" id="secretModal">
+    <div class="secret-box">
+      <h4 style="font-family:'Fredoka',sans-serif; color:#ad1457;">🔐 Creator Live Alert Setup</h4>
+      <p style="font-size:12px; color:#555;">
+        Agar tu chahta hai ki Yogita ke YES dabate hi tere Telegram Bot par silent notification aaye, toh details daal kar sharable link copy kar le:
+      </p>
+      <input type="text" id="tgBotToken" placeholder="Telegram Bot Token (Optional)" />
+      <input type="text" id="tgChatId" placeholder="Telegram Chat ID (Optional)" />
+      <button class="btn-primary" onclick="saveAndCopySecretLink()" style="padding:10px;">
+        🔗 Save & Copy Share Link
+      </button>
+      <button class="btn-playful" onclick="document.getElementById('secretModal').classList.remove('open')" style="padding:8px;">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Clean any accidental stray text nodes outside app shell
+    window.addEventListener('DOMContentLoaded', () => {
+      Array.from(document.body.childNodes).forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
+          node.textContent = '';
+        }
+      });
+    });
+
+    let currentPage = 1;
+    let musicPlaying = false;
+    let musicMode = 'bestie'; // 'bestie' (Pages 1-3 synth) or 'romantic' (Pages 4-6 real MP3 song)
+    let audioCtx = null;
+    let melodyTimer = null;
+    let noteIndex = 0;
+    let mp3Unlocked = false;
+
+    const loveAudio = document.getElementById('loveSongAudio');
+
+    const catLines = {
+      1: "Hey Yogita Cutie! Envelope open kijiye 🐾💖",
+      2: "WePlay ki sabse cute partner ho Aap! 🎮✨",
+      3: "Charo cards tap karke dekhiye Jaan! 🎀🐾",
+      4: "Pehle card scratch kijiye aur Heart tap kijiye Baby! 💓",
+      5: "Ishq Wala Love sunte huye messages padhiye 🥺💌",
+      6: "Jaldi se 'Haan Jaan!' daba dijiye Cutie! 💍🐱"
+    };
+
+    function updateDots(page) {
+      const dots = document.querySelectorAll('#stepDots .dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === page - 1);
+      });
+    }
+
+    function goToPage(page) {
+      document.querySelectorAll('.page-card').forEach(card => card.classList.remove('active'));
+      const target = document.getElementById('page' + page);
+      if (target) target.classList.add('active');
+      currentPage = page;
+      updateDots(page);
+
+      const catSpeech = document.getElementById('catSpeech');
+      if (catSpeech && catLines[page]) {
+        catSpeech.textContent = catLines[page];
+      }
+
+      if (page === 4) {
+        setTimeout(initScratchCard, 80);
+      }
+
+      if (page >= 5) {
+        document.body.classList.add('romantic-mode');
+        switchMusicStage('romantic');
+      } else if (page <= 3) {
+        document.body.classList.remove('romantic-mode');
+        switchMusicStage('bestie');
+      }
+    }
+
+    // Unlock MP3 silently on first user gesture so mobile Chrome allows instant playback on Page 4
+    function warmUpLoveMp3() {
+      if (mp3Unlocked || !loveAudio) return;
+      loveAudio.volume = 0;
+      const p = loveAudio.play();
+      if (p !== undefined) {
+        p.then(() => {
+          loveAudio.pause();
+          loveAudio.currentTime = 0;
+          loveAudio.volume = 1;
+          mp3Unlocked = true;
+        }).catch(() => {});
+      }
+    }
+
+    function startJourney() {
+      warmUpLoveMp3();
+      if (!musicPlaying) {
+        startMusic('bestie');
+      }
+      goToPage(2);
+    }
+
+    function measureHeartDistance() {
+      const badge = document.getElementById('distBadge');
+      const txt = document.getElementById('distText');
+      const btn = document.getElementById('distBtn');
+      badge.textContent = "0 km in Heart 💖";
+      badge.style.background = "#dcfce7";
+      badge.style.color = "#15803d";
+      txt.innerHTML = "Map par chahe kitne bhi km ho <span class='word-pill pill-pink'>Jaan</span>, dil se hum dono <span class='word-pill pill-gold'>0 km</span> door hain—hamesha ek saath! 💞";
+      btn.textContent = "✅ Connected By Heart Forever";
+    }
+
+    function revealSticker(cardEl) {
+      cardEl.classList.toggle('revealed');
+    }
+
+    function boostCutieMeter() {
+      const fill = document.getElementById('meterFill');
+      const val = document.getElementById('meterValue');
+      fill.style.width = '100%';
+      val.textContent = 'Infinity% Cutie ♾️💖';
+      document.getElementById('catSpeech').textContent = "Meter toot gaya! Aap Infinity% cute ho Baby! 😻💖";
+    }
+
+    // Interactive Scratch Card on Page 4
+    let scratchInitialized = false;
+    function initScratchCard() {
+      if (scratchInitialized) return;
+      const sCanvas = document.getElementById('scratchCanvas');
+      if (!sCanvas) return;
+      const rect = sCanvas.parentElement.getBoundingClientRect();
+      if (rect.width === 0) return;
+
+      sCanvas.width = rect.width;
+      sCanvas.height = rect.height;
+      const sCtx = sCanvas.getContext('2d');
+
+      const grad = sCtx.createLinearGradient(0, 0, sCanvas.width, sCanvas.height);
+      grad.addColorStop(0, '#ff85a2');
+      grad.addColorStop(0.5, '#ec4899');
+      grad.addColorStop(1, '#a855f7');
+      sCtx.fillStyle = grad;
+      sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
+
+      sCtx.fillStyle = '#ffffff';
+      sCtx.font = '700 13.5px Quicksand, sans-serif';
+      sCtx.textAlign = 'center';
+      sCtx.fillText('✨ Ungli Se Scratch Kijiye Cutie ✨', sCanvas.width / 2, sCanvas.height / 2 + 5);
+
+      let isDrawing = false;
+
+      function scratchAt(clientX, clientY) {
+        const r = sCanvas.getBoundingClientRect();
+        const x = clientX - r.left;
+        const y = clientY - r.top;
+        sCtx.globalCompositeOperation = 'destination-out';
+        sCtx.beginPath();
+        sCtx.arc(x, y, 22, 0, Math.PI * 2);
+        sCtx.fill();
+      }
+
+      sCanvas.addEventListener('pointerdown', (e) => {
+        isDrawing = true;
+        scratchAt(e.clientX, e.clientY);
+      });
+      sCanvas.addEventListener('pointermove', (e) => {
+        if (!isDrawing) return;
+        scratchAt(e.clientX, e.clientY);
+      });
+      window.addEventListener('pointerup', () => {
+        isDrawing = false;
+      });
+
+      scratchInitialized = true;
+    }
+
+    function unlockRomanticMode() {
+      const icon = document.getElementById('scanHeartIcon');
+      const title = document.getElementById('scanStatusTitle');
+      const sub = document.getElementById('scanStatusSub');
+
+      icon.textContent = "🔓💖";
+      title.textContent = "Playing Ishq Wala Love For Yogita Jaan! ✨";
+      sub.textContent = "Opening Dil Ki Baat... 🎶";
+
+      document.body.classList.add('romantic-mode');
+      musicPlaying = true;
+      switchMusicStage('romantic');
+
+      setTimeout(() => {
+        goToPage(5);
+      }, 650);
+    }
+
+    // Virtual Hug & Bucket List on Page 5
+    function sendVirtualHug() {
+      const btn = document.getElementById('hugBtn');
+      const status = document.getElementById('hugStatusText');
+      if (navigator.vibrate) {
+        navigator.vibrate([120, 60, 180]);
+      }
+      status.textContent = "🤗 Tight Hug Sent To My Jaan! 💖";
+      btn.textContent = "💞 Aapne Mera Dil Chhoo Liya Baby!";
+      burstCelebrationHearts();
+      sendLiveAlert("🤗 Yogita clicked the Virtual Hug button!");
+    }
+
+    function toggleBucket(itemEl) {
+      itemEl.classList.toggle('checked');
+      const box = itemEl.querySelector('span');
+      box.textContent = itemEl.classList.contains('checked') ? '✅' : '⬜';
+    }
+
+    // Playful No Button Logic
+    let noCount = 0;
+    const playfulPrompts = [
+      "Arey Jaan, itna mat sochiye na 🥺💖",
+      "Baby please, WePlay ki kasam Haan bol dijiye! 🙈✨",
+      "Cutie, mere paas sirf Aapke liye pyar hai! 🌸",
+      "Okay Baba, Haan Jaan! YES! 💖💍"
+    ];
+
+    function handlePlayfulWait() {
+      const btn = document.getElementById('playfulNoBtn');
+      if (noCount < playfulPrompts.length - 1) {
+        btn.textContent = playfulPrompts[noCount];
+        noCount++;
+        sendLiveAlert("Yogita tapped playful button: " + btn.textContent);
+      } else {
+        acceptProposal();
+      }
+    }
+
+    function acceptProposal() {
+      document.getElementById('proposalAskView').style.display = 'none';
+      document.getElementById('proposalYesView').style.display = 'block';
+      document.getElementById('catSpeech').textContent = "Yayyy! Yogita Ji ne HAAN bol diya! Party!! 🥳💖🐾";
+      burstCelebrationHearts();
+      sendLiveAlert("🎉 YOGITA SAID YES! 💖 She clicked 'Haan Jaan! Yes, Forever!'");
+    }
+
+    function setReplyChip(text) {
+      document.getElementById('yogitaReplyInput').value = text;
+    }
+
+    function copyReplyMessage() {
+      const input = document.getElementById('yogitaReplyInput');
+      const btn = document.getElementById('copyReplyBtn');
+      const msg = input.value.trim() || "Haan Jaan! 💖";
+
+      navigator.clipboard.writeText(msg).catch(() => {
+        input.select();
+        document.execCommand('copy');
+      });
+
+      btn.textContent = "✅ Copied! Ab WePlay / Insta Par Paste Kijiye 💖";
+      sendLiveAlert("💌 Yogita copied her reply: " + msg);
+      setTimeout(() => {
+        btn.textContent = "📋 Copy Reply for WePlay / Instagram";
+      }, 3000);
+    }
+
+    // Peeking Cat Controls
+    function toggleCat(show) {
+      const cat = document.getElementById('peekingCat');
+      cat.classList.toggle('hidden-cat', !show);
+    }
+
+    function pokeCat() {
+      const cutePokes = [
+        "Meow! Yogita Ji Aap bohot pyari lag rahi ho! 🐾💖",
+        "Jaan, Aapki smile sabse best hai! 😻🌸",
+        "Baby, jaldi-jaldi saare surprises dekhiye! ✨🐱"
+      ];
+      document.getElementById('catSpeech').textContent = cutePokes[Math.floor(Math.random() * cutePokes.length)];
+    }
+
+    // 2-Stage Music Controller:
+    // Stage 1 (Pages 1-3): Cute Bestie Synth Melody
+    // Stage 2 (Pages 4-6): Real "Ishq Wala Love" MP3 Song from Dropbox
+    const bestieNotes = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 783.99, 659.25];
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playBestieNote(freq, duration) {
+      if (!audioCtx || !musicPlaying || musicMode !== 'bestie') return;
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.055, now + 0.06);
+      gain.gain.exponentialRampToValueAtTime(0.0008, now + duration);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + duration);
+    }
+
+    function syncAudioPlayback() {
+      clearInterval(melodyTimer);
+
+      if (!musicPlaying) {
+        if (loveAudio) loveAudio.pause();
+        return;
+      }
+
+      if (musicMode === 'bestie') {
+        if (loveAudio) loveAudio.pause();
+        initAudio();
+        noteIndex = 0;
+        melodyTimer = setInterval(() => {
+          if (!musicPlaying || musicMode !== 'bestie') return;
+          const f = bestieNotes[noteIndex % bestieNotes.length];
+          playBestieNote(f, 0.35);
+          noteIndex++;
+        }, 420);
+      } else {
+        // Play Real Ishq Wala Love MP3
+        if (loveAudio) {
+          loveAudio.volume = 1.0;
+          loveAudio.play().catch(() => {});
+        }
+      }
+    }
+
+    function startMusic(mode) {
+      musicMode = mode || musicMode;
+      musicPlaying = true;
+      updateMusicUI();
+      syncAudioPlayback();
+    }
+
+    function switchMusicStage(newMode) {
+      if (musicMode === newMode && musicPlaying) return;
+      musicMode = newMode;
+      updateMusicUI();
+      if (musicPlaying) {
+        syncAudioPlayback();
+      }
+    }
+
+    function toggleMusic() {
+      warmUpLoveMp3();
+      if (!musicPlaying) {
+        startMusic(currentPage >= 4 ? 'romantic' : 'bestie');
+      } else {
+        musicPlaying = false;
+        syncAudioPlayback();
+        updateMusicUI();
+      }
+    }
+
+    function updateMusicUI() {
+      const btn = document.getElementById('musicBtn');
+      const label = document.getElementById('musicLabel');
+      btn.classList.toggle('music-playing', musicPlaying);
+      if (!musicPlaying) {
+        label.textContent = '🔇 Music Paused';
+      } else {
+        label.textContent = musicMode === 'romantic' ? '💖 Ishq Wala Love' : '🎵 Cute Bestie Vibe';
+      }
+    }
+
+    // Secret 5-Tap Creator Alert Setup
+    let tapCounter = 0;
+    let tapTimer = null;
+    function handleSecretTap() {
+      tapCounter++;
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => { tapCounter = 0; }, 1200);
+      if (tapCounter >= 5) {
+        tapCounter = 0;
+        document.getElementById('secretModal').classList.add('open');
+      }
+    }
+
+    function saveAndCopySecretLink() {
+      const t = document.getElementById('tgBotToken').value.trim();
+      const c = document.getElementById('tgChatId').value.trim();
+      const url = new URL(window.location.href);
+      if (t && c) {
+        url.searchParams.set('t', btoa(t));
+        url.searchParams.set('c', btoa(c));
+      }
+      navigator.clipboard.writeText(url.toString());
+      alert("Share link copied! Ab ye link Yogita ko bhej de.");
+      document.getElementById('secretModal').classList.remove('open');
+    }
+
+    function sendLiveAlert(text) {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const t = params.get('t') ? atob(params.get('t')) : '';
+        const c = params.get('c') ? atob(params.get('c')) : '';
+        if (t && c) {
+          fetch(`https://api.telegram.org/bot${t}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: c, text: "💖 Yogita Website Alert:\n" + text })
+          }).catch(() => {});
+        }
+      } catch (e) {}
+    }
+
+    // Heart Rain Canvas & Tap Burst
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas.getContext('2d');
+    let hearts = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createHeart(x, y, burst = false) {
+      return {
+        x: x ?? Math.random() * canvas.width,
+        y: y ?? -20,
+        size: burst ? (Math.random() * 12 + 8) : (Math.random() * 10 + 7),
+        speedY: burst ? (Math.random() * -3 - 1.5) : (Math.random() * 1.2 + 0.6),
+        speedX: burst ? ((Math.random() - 0.5) * 4) : ((Math.random() - 0.5) * 0.6),
+        opacity: Math.random() * 0.55 + 0.3,
+        color: ['#ff4d8d', '#ff85a2', '#a855f7', '#fb7185'][Math.floor(Math.random() * 4)],
+        burst
+      };
+    }
+
+    for (let i = 0; i < 24; i++) {
+      const h = createHeart();
+      h.y = Math.random() * canvas.height;
+      hearts.push(h);
+    }
+
+    function drawHeartShape(x, y, size, color, alpha) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      const topCurveHeight = size * 0.3;
+      ctx.moveTo(x, y + topCurveHeight);
+      ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+      ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.4, x, y + size);
+      ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.4, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+      ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function animateHearts() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = hearts.length - 1; i >= 0; i--) {
+        const h = hearts[i];
+        h.y += h.speedY;
+        h.x += h.speedX;
+        if (h.burst) {
+          h.speedY += 0.08;
+          h.opacity -= 0.015;
+          if (h.opacity <= 0) {
+            hearts.splice(i, 1);
+            continue;
+          }
+        } else if (h.y > canvas.height + 20) {
+          h.y = -15;
+          h.x = Math.random() * canvas.width;
+        }
+        drawHeartShape(h.x, h.y, h.size, h.color, h.opacity);
+      }
+      requestAnimationFrame(animateHearts);
+    }
+    animateHearts();
+
+    function burstCelebrationHearts() {
+      for (let i = 0; i < 28; i++) {
+        hearts.push(createHeart(window.innerWidth / 2, window.innerHeight / 2, true));
+      }
+    }
+
+    window.addEventListener('pointerdown', (e) => {
+      for (let i = 0; i < 4; i++) {
+        hearts.push(createHeart(e.clientX, e.clientY, true));
+      }
+    });
+  </script>
+</body>
+</html>
